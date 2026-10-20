@@ -2,7 +2,7 @@
 const MAKS_ENERGIA = 10;
 let pokoj = 1;
 let energia = MAKS_ENERGIA;
-let karta = false;
+let karta = true;
 let bezpiecznik = false;
 let zasilanie = false;
 let koniec = false;
@@ -131,11 +131,39 @@ function rozejrzyj() {
 
 // SEKCJA B — RUCH
 function idz(kierunek) {
-  // TODO B1: zablokuj ruch po koncu gry.
+	// TODO B1: zablokuj ruch po koncu gry. git
+	if(koniec == true){
+		console.log("koniec?");
+		return;
+	}
   // TODO B2: switch kierunku; oblicz kandydat na nowy pokoj.
+	let nastepnypokoj = pokoj;
+	switch (kierunek){
+		case "prawo":
+			nastepnypokoj=nastepnypokoj+1;
+			break;
+		case "lewo":
+			nastepnypokoj=nastepnypokoj-1;
+			break;
+		default:
+			console.log("Wskazówka: wybierz kierunek 'prawo' lub 'lewo'.");
+			return;
+	}
   // TODO B3: odrzuc pokoj poza 1..4 i nieznany kierunek bez kosztu.
+	if (nastepnypokoj < 1 || nastepnypokoj > 4) {
+    console.log("Nie ma przejścia");
+    return;
+	}
+	if(nastepnypokoj < 1){
+		nastepnypokoj=1;
+	}
+	if(nastepnypokoj > 4){
+		nastepnypokoj=4;
+	}
   // TODO B4: zapisz poprawny pokoj, rozejrzyj(), zakonczTure().
-  console.log("Ruch do uzupelnienia");
+	pokoj = nastepnypokoj;
+	rozejrzyj();
+	zakonczTure();
 }
 
 // SEKCJA C — PRZEDMIOTY I WYGRANA
