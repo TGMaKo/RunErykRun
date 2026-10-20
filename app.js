@@ -66,8 +66,68 @@ function idz(kierunek) {
 
 // SEKCJA C — PRZEDMIOTY I WYGRANA
 function akcja(co) {
-  // TODO C1: zablokuj akcje po koncu gry.
-  // TODO C2: switch: karta / bezpiecznik / napraw / wyjdz.
+  if(koniec==true){
+      console.log("Koniec gry");
+      return;
+  }
+  switch(co){
+      case karta:
+          if(karta == false){
+              if(pokoj==1){
+                  karta=true;
+                  break;
+              }
+              else{
+                  console.log("Zły pokój");
+                  break;
+              }
+          }
+          else{
+                console.log("Masz już kartę");
+                break;
+          }
+      case bezpiecznik:
+          if(bezpiecznik==false){
+              if(zasilanie==false){
+                  if(pokoj==2){
+                      bezpiecznik=true;
+                      break;
+                  }
+                  else{
+                      console.log("Zły pokój");
+                      break;
+                  }
+              }
+              else{
+                  console.log("Zasilanie jest już włączone");
+                  break;
+              }
+          }
+          else{
+              console.log("Masz już bezpiecznik");
+              break;
+          }
+      case napraw:
+          if(bezpiecznik==true){
+              if(zasilanie==false){
+                  if(pokoj==3){
+                      zasilanie=true;
+                      bezpiecznik=false;
+                      break;
+                  }
+              }
+          }
+      case wyjdz:
+          if(pokoj==4){
+              if(karta==true){
+                  if(zasilanie==true){
+                      wygrana=true;
+                      koniec=true;
+                  }
+              }
+          }
+      }
+  }
   // TODO C2: przed zmiana sprawdz pokoj i wymagany stan.
   // TODO C3: przy odrzuceniu return; przy sukcesie break.
   // TODO C3: po switch jedno zakonczTure().
