@@ -65,28 +65,29 @@ function idz(kierunek) {
 }
 
 // SEKCJA C — PRZEDMIOTY I WYGRANA
-function akcja(co) {
+function akcja(co){
   if(koniec==true){
       console.log("Koniec gry");
       return;
   }
   switch(co){
-      case karta:
+      case "karta":
           if(karta == false){
               if(pokoj==1){
                   karta=true;
+                  console.log("Zebrano kartę")
                   break;
               }
               else{
                   console.log("Zły pokój");
-                  break;
+                  return;
               }
           }
           else{
                 console.log("Masz już kartę");
-                break;
+                return;
           }
-      case bezpiecznik:
+      case "bezpiecznik":
           if(bezpiecznik==false){
               if(zasilanie==false){
                   if(pokoj==2){
@@ -95,19 +96,19 @@ function akcja(co) {
                   }
                   else{
                       console.log("Zły pokój");
-                      break;
+                      return;
                   }
               }
               else{
                   console.log("Zasilanie jest już włączone");
-                  break;
+                  return;
               }
           }
           else{
               console.log("Masz już bezpiecznik");
-              break;
+              return;
           }
-      case napraw:
+      case "napraw":
           if(bezpiecznik==true){
               if(zasilanie==false){
                   if(pokoj==3){
@@ -115,24 +116,49 @@ function akcja(co) {
                       bezpiecznik=false;
                       break;
                   }
+                  else{
+                      console.log("Zły pokój");
+                      return;
+                  }
+              }
+              else{
+                  console.log("Zasilanie jest już włączone");
+                  return;
               }
           }
-      case wyjdz:
+          else{
+              console.log("Brak bezpiecznika");
+              return;
+          }
+      case "wyjdz":
           if(pokoj==4){
               if(karta==true){
                   if(zasilanie==true){
                       wygrana=true;
                       koniec=true;
+                      break;
+                  }
+                  else{
+                      console.log("Brak zasilania");
+                      return;
                   }
               }
+              else{
+                  console.log("Brak karty");
+                  return;
+              }
           }
+          else{
+              console.log("Zły pokój");
+              return;
+          }
+      default:
+          console.log("Błędna komenda");
+          return;
       }
+      zakonczTure();
   }
-  // TODO C2: przed zmiana sprawdz pokoj i wymagany stan.
-  // TODO C3: przy odrzuceniu return; przy sukcesie break.
-  // TODO C3: po switch jedno zakonczTure().
-  // TODO C4: wygrana i koniec ustawione przed rozliczeniem tury!
   console.log("Akcje do uzupelnienia");
-}
+
 
 start();
